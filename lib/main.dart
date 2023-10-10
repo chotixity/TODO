@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/widgets/bottombar.dart';
 
 import './screens/home.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: const BottomBar(),
     );
   }
 }

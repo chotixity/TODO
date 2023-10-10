@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/bottombar.dart';
+import '../widgets/tile.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -8,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double progress = 0.1;
+  double progress = 1 / 3;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +34,48 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Today\'s tasks(9)'),
-                TextButton(onPressed: () {}, child: const Text('see all'))
+                const Text(
+                  'Today\'s tasks(9)',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'See All',
+                      style: TextStyle(color: Colors.blue, fontSize: 16),
+                    ))
               ],
+            ),
+            Flexible(
+              child: ListView(
+                children: const [
+                  Tile(
+                    title: 'Dondaa Enhancements',
+                    description: 'Bug fixes and improvements',
+                    completedSessions: '0 / 3',
+                    time: '11:00 - 13 -10',
+                  ),
+                  Tile(
+                    title: 'Dondaa Enhancements',
+                    description:
+                        'Bug fixes and improvements on the UI of my app in production',
+                    completedSessions: '0 / 3',
+                    time: '11:00 - 13 -10',
+                  ),
+                  Tile(
+                    title: 'Research about ios SDK',
+                    description:
+                        'How it works and a sample project illustrating how to use it for a video feature',
+                    completedSessions: '1 / 3',
+                    time: '11:00 - 13 -10',
+                  )
+                ],
+              ),
             )
           ],
         ),
       ),
+      //bottomNavigationBar: const BottomBar(),
     );
   }
 }
@@ -53,7 +91,7 @@ class taskProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 150,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.black45,
@@ -73,7 +111,7 @@ class taskProgress extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 30,
+            width: 20,
           ),
           const Flexible(
             child: FractionallySizedBox(
@@ -84,17 +122,17 @@ class taskProgress extends StatelessWidget {
                   Text(
                     'You\'re almost halfway through your daily tasks',
                     style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: Color.fromRGBO(255, 255, 255, 1)),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   Text(
                     '3 of 9 tasks completed',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),

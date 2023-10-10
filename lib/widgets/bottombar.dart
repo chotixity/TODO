@@ -1,0 +1,69 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
+import '../screens/home.dart';
+
+class BottomBar extends StatefulWidget {
+  const BottomBar({super.key});
+
+  @override
+  State<BottomBar> createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<BottomBar> {
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = [
+    Home(),
+    Text('Hello'),
+    Text('Howre you'),
+    Text('my name is choti'),
+    Text('Go home'),
+  ];
+  final List<BottomNavigationBarItem> _bars = [
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Home',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.calendar_today),
+      label: 'Calendar',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(
+        Icons.add_circle,
+        size: 50,
+      ),
+      label: 'new Task',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.bar_chart),
+      label: 'graph',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.settings),
+      label: 'settings',
+    )
+  ];
+
+  void _onItemTapped(int Index) {
+    setState(() {
+      _selectedIndex = Index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.blue,
+        items: _bars,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}

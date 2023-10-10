@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import '../screens/calendar.dart';
 import '../screens/home.dart';
 
 class BottomBar extends StatefulWidget {
@@ -14,7 +13,7 @@ class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = [
     Home(),
-    Text('Hello'),
+    Calendar(),
     Text('Howre you'),
     Text('my name is choti'),
     Text('Go home'),

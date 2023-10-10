@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
             const SizedBox(
               height: 20,
             ),
-            taskProgress(progress: progress),
+            TaskProgress(progress: progress),
             const SizedBox(
               height: 15,
             ),
@@ -39,11 +39,12 @@ class _HomeState extends State<Home> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'See All',
-                      style: TextStyle(color: Colors.blue, fontSize: 16),
-                    ))
+                  onPressed: () {},
+                  child: const Text(
+                    'See All',
+                    style: TextStyle(color: Colors.blue, fontSize: 16),
+                  ),
+                )
               ],
             ),
             Flexible(
@@ -80,8 +81,8 @@ class _HomeState extends State<Home> {
   }
 }
 
-class taskProgress extends StatelessWidget {
-  const taskProgress({
+class TaskProgress extends StatelessWidget {
+  const TaskProgress({
     super.key,
     required this.progress,
   });
@@ -122,9 +123,10 @@ class taskProgress extends StatelessWidget {
                   Text(
                     'You\'re almost halfway through your daily tasks',
                     style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(255, 255, 255, 1)),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                    ),
                   ),
                   SizedBox(
                     height: 5,

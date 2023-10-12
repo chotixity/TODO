@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/settings.dart';
 import '../screens/calendar.dart';
 import '../screens/home.dart';
 
@@ -16,7 +17,7 @@ class _BottomBarState extends State<BottomBar> {
     Calendar(),
     Text('Howre you'),
     Text('my name is choti'),
-    Text('Go home'),
+    SettingsPage(),
   ];
   final List<BottomNavigationBarItem> _bars = [
     const BottomNavigationBarItem(

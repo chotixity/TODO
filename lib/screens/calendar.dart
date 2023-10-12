@@ -9,7 +9,7 @@ class Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
       child: Column(
         children: [
           Flexible(
@@ -26,6 +26,24 @@ class Calendar extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          SizedBox(
+            height: 100,
+            child: Expanded(
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: 7,
+                separatorBuilder: (context, index) {
+                  return const VerticalDivider(
+                    width: 20,
+                    //color: Colors.amber,
+                  );
+                },
+                itemBuilder: (context, index) {
+                  return const DaysTile();
+                },
+              ),
+            ),
           )
         ],
       ),
@@ -38,11 +56,16 @@ class DaysTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 100,
-      width: 100,
+    return Container(
+      //height: 30,
+      width: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.black26,
+      ),
       child: Column(
-        children: [],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text(DateFormat.E().format(DateTime.now()))],
       ),
     );
   }

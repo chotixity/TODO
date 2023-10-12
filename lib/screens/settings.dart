@@ -8,13 +8,14 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _expanded = false;
+  bool _focusSessionExpanded = false;
+  final bool _timeExpanded = false;
   bool _autoStartBreaks = false;
   bool _autoStartSessions = false;
 
   void _toggleExpanded() {
     setState(() {
-      _expanded = !_expanded;
+      _focusSessionExpanded = !_focusSessionExpanded;
     });
   }
 
@@ -34,9 +35,20 @@ class _SettingsPageState extends State<SettingsPage> {
             child: ListView(
               children: [
                 focusSessions(theme),
+                const Divider(),
                 Container(
-                  height: ,
+                  height: _timeExpanded ? 100 : 80,
                   decoration: const BoxDecoration(color: Colors.black26),
+                  child: ListTile(
+                    title: Text(
+                      'Time',
+                      style: theme.textTheme.displayMedium,
+                    ),
+                    leading: const Icon(
+                      Icons.timer_outlined,
+                      size: 40,
+                    ),
+                  ),
                 )
               ],
             ),
@@ -49,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Container focusSessions(ThemeData theme) {
     return Container(
       decoration: const BoxDecoration(color: Colors.black26),
-      height: _expanded ? 200 : 80,
+      height: _focusSessionExpanded ? 200 : 80,
       child: Column(
         children: [
           ListTile(
@@ -66,12 +78,14 @@ class _SettingsPageState extends State<SettingsPage> {
                 _toggleExpanded();
               },
               icon: Icon(
-                _expanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                _focusSessionExpanded
+                    ? Icons.arrow_drop_up
+                    : Icons.arrow_drop_down,
                 size: 50,
               ),
             ),
           ),
-          if (_expanded)
+          if (_focusSessionExpanded)
             SwitchListTile(
               //secondary: const Icon(Icons.hourglass_empty),
               title: const Text('Auto Start Breaks'),
@@ -82,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 });
               },
             ),
-          if (_expanded)
+          if (_focusSessionExpanded)
             SwitchListTile(
               //secondary: const Icon(Icons.hourglass_empty),
               title: const Text('Auto Start Sessions'),
@@ -96,6 +110,27 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
         ],
+      ),
+    );
+  }
+}
+
+class customTile extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  const customTile(this.icon, this.title, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 40,
+      ),
+      title: Text(
+        title,
+        style: theme.textTheme.displayMedium,
       ),
     );
   }

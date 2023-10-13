@@ -15,8 +15,10 @@ class Tile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      //color: Theme.of(context).colorScheme.secondary,
       height: 150,
       child: Card(
+        color: Theme.of(context).colorScheme.primary,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -30,20 +32,13 @@ class Tile extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: Text(
                           title,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                       ),
                       Text(
                         description,
                         maxLines: 2,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(
                         height: 20,

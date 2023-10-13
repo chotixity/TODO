@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/widgets/bottombar.dart';
 
+import './theme/dark.dart';
+import './theme/light.dart';
+import './widgets/bottombar.dart';
 import './screens/home.dart';
 
 void main() {
@@ -16,22 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        colorScheme: ColorScheme.fromSeed(
-          brightness: Brightness.dark,
-          seedColor: Colors.white,
-          primary: Colors.white,
-        ),
-        textTheme: const TextTheme(
-          displayMedium: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        useMaterial3: true,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: const BottomBar(),
     );
   }

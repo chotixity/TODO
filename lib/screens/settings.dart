@@ -48,6 +48,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       Icons.timer_outlined,
                       size: 40,
                     ),
+                    trailing: Icon(
+                      _timeExpanded
+                          ? Icons.arrow_drop_up
+                          : Icons.arrow_drop_down,
+                      size: 50,
+                    ),
                   ),
                 )
               ],

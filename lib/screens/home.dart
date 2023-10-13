@@ -34,9 +34,9 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Today\'s tasks(9)',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 TextButton(
                   onPressed: () {},
@@ -91,6 +91,7 @@ class TaskProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       height: 150,
       padding: const EdgeInsets.all(15),
@@ -114,7 +115,7 @@ class TaskProgress extends StatelessWidget {
           const SizedBox(
             width: 20,
           ),
-          const Flexible(
+          Flexible(
             child: FractionallySizedBox(
               //widthFactor: .5,
               child: Column(
@@ -122,22 +123,14 @@ class TaskProgress extends StatelessWidget {
                 children: [
                   Text(
                     'You\'re almost halfway through your daily tasks',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                    ),
+                    style: theme.textTheme.bodyLarge,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     '3 of 9 tasks completed',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: theme.textTheme.bodyMedium,
                   ),
                 ],
               ),

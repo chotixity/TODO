@@ -18,7 +18,7 @@ class Tile extends StatelessWidget {
       //color: Theme.of(context).colorScheme.secondary,
       height: 150,
       child: Card(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.secondary,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

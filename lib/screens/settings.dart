@@ -8,6 +8,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final TextEditingController _timeController = TextEditingController();
   bool _focusSessionExpanded = false;
   bool _timeExpanded = false;
   bool _autoStartBreaks = false;
@@ -36,50 +37,66 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 focusSessions(theme),
                 const Divider(),
-                Container(
-                  height: _timeExpanded ? 120 : 80,
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          'Time',
-                          style: theme.textTheme.displayMedium,
-                        ),
-                        leading: const Icon(
-                          Icons.timer_outlined,
-                          size: 40,
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _timeExpanded = !_timeExpanded;
-                            });
-                          },
-                          icon: Icon(
-                            _timeExpanded
-                                ? Icons.arrow_drop_up
-                                : Icons.arrow_drop_down,
-                            size: 50,
-                          ),
-                        ),
-                      ),
-                      if (_timeExpanded)
-                        ListTile(
-                          leading: Text(
-                            'Hour format',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        )
-                    ],
-                  ),
-                )
+                Time(theme, context),
+                Container(),
               ],
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Container Time(ThemeData theme, BuildContext context) {
+    return Container(
+      height: _timeExpanded ? 120 : 80,
+      decoration: BoxDecoration(
+        color: Colors.black26,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              'Time',
+              style: theme.textTheme.displayMedium,
+            ),
+            leading: const Icon(
+              Icons.timer_outlined,
+              size: 40,
+            ),
+            trailing: IconButton(
+              onPressed: () {
+                setState(() {
+                  _timeExpanded = !_timeExpanded;
+                });
+              },
+              icon: Icon(
+                _timeExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                size: 50,
+              ),
+            ),
+          ),
+          if (_timeExpanded)
+            ListTile(
+              leading: Text(
+                'Hour format',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              trailing: DropdownMenu<String>(
+                controller: _timeController,
+                dropdownMenuEntries: const [
+                  DropdownMenuEntry<String>(
+                    value: '24 Hour',
+                    label: '24 Hour',
+                  ),
+                  DropdownMenuEntry(
+                    value: '12 Hour',
+                    label: '12 Hour',
+                  ),
+                ],
+              ),
+            )
         ],
       ),
     );
@@ -117,6 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           if (_focusSessionExpanded)
             SwitchListTile(
+              activeColor: Colors.green,
               //secondary: const Icon(Icons.hourglass_empty),
               title: const Text('Auto Start Breaks'),
               value: _autoStartBreaks,
@@ -128,6 +146,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           if (_focusSessionExpanded)
             SwitchListTile(
+              activeColor: Colors.green,
               //secondary: const Icon(Icons.hourglass_empty),
               title: const Text('Auto Start Sessions'),
               value: _autoStartSessions,
@@ -141,28 +160,6 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
         ],
       ),
-    );
-  }
-}
-
-class customTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  const customTile(this.icon, this.title, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return ListTile(
-      leading: Icon(
-        icon,
-        size: 40,
-      ),
-      title: Text(
-        title,
-        style: theme.textTheme.displayMedium,
-      ),
-      trailing: Icon(icon),
     );
   }
 }

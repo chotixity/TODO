@@ -96,7 +96,7 @@ class TaskProgress extends StatelessWidget {
       height: 150,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Colors.black45,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Row(
@@ -123,7 +123,7 @@ class TaskProgress extends StatelessWidget {
                 children: [
                   Text(
                     'You\'re almost halfway through your daily tasks',
-                    style: theme.textTheme.bodyLarge,
+                    style: theme.textTheme.displayMedium,
                   ),
                   const SizedBox(
                     height: 5,

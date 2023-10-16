@@ -9,7 +9,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _focusSessionExpanded = false;
-  final bool _timeExpanded = false;
+  bool _timeExpanded = false;
   bool _autoStartBreaks = false;
   bool _autoStartSessions = false;
 
@@ -31,29 +31,50 @@ class _SettingsPageState extends State<SettingsPage> {
             'Settings',
             style: theme.textTheme.displayMedium,
           ),
-          Flexible(
+          Expanded(
             child: ListView(
               children: [
                 focusSessions(theme),
                 const Divider(),
                 Container(
-                  height: _timeExpanded ? 100 : 80,
-                  decoration: const BoxDecoration(color: Colors.black26),
-                  child: ListTile(
-                    title: Text(
-                      'Time',
-                      style: theme.textTheme.displayMedium,
-                    ),
-                    leading: const Icon(
-                      Icons.timer_outlined,
-                      size: 40,
-                    ),
-                    trailing: Icon(
-                      _timeExpanded
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                      size: 50,
-                    ),
+                  height: _timeExpanded ? 120 : 80,
+                  decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          'Time',
+                          style: theme.textTheme.displayMedium,
+                        ),
+                        leading: const Icon(
+                          Icons.timer_outlined,
+                          size: 40,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _timeExpanded = !_timeExpanded;
+                            });
+                          },
+                          icon: Icon(
+                            _timeExpanded
+                                ? Icons.arrow_drop_up
+                                : Icons.arrow_drop_down,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                      if (_timeExpanded)
+                        ListTile(
+                          leading: Text(
+                            'Hour format',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        )
+                    ],
                   ),
                 )
               ],
@@ -66,7 +87,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Container focusSessions(ThemeData theme) {
     return Container(
-      decoration: const BoxDecoration(color: Colors.black26),
+      decoration: BoxDecoration(
+        color: Colors.black26,
+        borderRadius: BorderRadius.circular(15),
+      ),
       height: _focusSessionExpanded ? 200 : 80,
       child: Column(
         children: [
@@ -138,6 +162,7 @@ class customTile extends StatelessWidget {
         title,
         style: theme.textTheme.displayMedium,
       ),
+      trailing: Icon(icon),
     );
   }
 }

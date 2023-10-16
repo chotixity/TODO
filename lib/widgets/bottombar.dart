@@ -60,7 +60,7 @@ class _BottomBarState extends State<BottomBar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        unselectedItemColor: Colors.white,
+        unselectedItemColor: Theme.of(context).colorScheme.secondary,
         selectedItemColor: Colors.blue,
         items: _bars,
         onTap: _onItemTapped,

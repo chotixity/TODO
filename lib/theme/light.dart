@@ -7,18 +7,18 @@ final lightTheme = ThemeData(
     primary: Colors.white24,
     secondary: Colors.grey,
   ),
-  textTheme: const TextTheme(
-    displayMedium: TextStyle(
+  textTheme: TextTheme(
+    displayMedium: const TextStyle(
       fontSize: 22,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
     bodyMedium: TextStyle(
-      color: Colors.white,
+      color: Colors.grey[300]!,
       fontSize: 12,
       //overflow: TextOverflow.ellipsis,
     ),
-    bodyLarge: TextStyle(
+    bodyLarge: const TextStyle(
       fontSize: 20,
       color: Colors.white,
       fontWeight: FontWeight.bold,

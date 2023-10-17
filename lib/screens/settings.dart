@@ -105,7 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Container focusSessions(ThemeData theme) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black26,
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(15),
       ),
       height: _focusSessionExpanded ? 200 : 80,

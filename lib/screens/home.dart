@@ -104,12 +104,26 @@ class TaskProgress extends StatelessWidget {
           SizedBox(
             height: 100,
             width: 100,
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
-              color: Colors.white,
-              value: progress,
-              strokeWidth: 10,
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+            child: Stack(
+              children: [
+                Center(
+                    child: Text(
+                  '${(progress * 100).round()}%',
+                  style: Theme.of(context).textTheme.displayMedium,
+                )),
+                SizedBox(
+                  height: 90,
+                  width: 90,
+                  child: CircularProgressIndicator(
+                    backgroundColor: theme.colorScheme.primary,
+                    color: Colors.white,
+                    value: progress,
+                    strokeWidth: 10,
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(

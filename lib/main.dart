@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './theme/dark.dart';
-import './theme/light.dart';
 import './widgets/bottombar.dart';
-import './screens/home.dart';
 
 void main() {
   runApp(const MyApp());

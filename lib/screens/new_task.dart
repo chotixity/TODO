@@ -3,9 +3,18 @@ import 'package:intl/intl.dart';
 
 import '../provider/tasks.dart';
 
-class NewTask extends StatelessWidget {
+class NewTask extends StatefulWidget {
   const NewTask({super.key});
 
+  @override
+  State<NewTask> createState() => _NewTaskState();
+}
+
+class _NewTaskState extends State<NewTask> {
+  final TextEditingController _taskNameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final DateTime _pickedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -18,8 +27,9 @@ class NewTask extends StatelessWidget {
             'Task Name',
             style: theme.textTheme.bodyLarge,
           ),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _taskNameController,
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Enter Task Name',
             ),
@@ -31,8 +41,9 @@ class NewTask extends StatelessWidget {
             'Description',
             style: theme.textTheme.bodyLarge,
           ),
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            controller: _descriptionController,
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Enter Description',
             ),
@@ -45,36 +56,41 @@ class NewTask extends StatelessWidget {
             style: theme.textTheme.bodyLarge,
           ),
           TextField(
+            keyboardType: TextInputType.none,
+            controller: _dateController,
             onTap: () {
               showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now(),
                 lastDate: DateTime(2030),
-              );
+              ).then((value) {
+                setState(() {
+                  _dateController.text = value!.toString();
+                });
+              });
             },
             decoration: InputDecoration(
               suffixIcon: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.calendar_today_outlined)),
               border: const OutlineInputBorder(),
-              hintText: DateFormat().add_yMMMd().format(DateTime.now()),
+              hintText: '',
             ),
           ),
           const SizedBox(
             height: 20,
           ),
           Text(
-            'Date',
+            'Time',
             style: theme.textTheme.bodyLarge,
           ),
           TextField(
             decoration: InputDecoration(
               suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.calendar_today_outlined)),
+                  onPressed: () {}, icon: const Icon(Icons.more_time)),
               border: const OutlineInputBorder(),
-              hintText: 'Enter Task Name',
+              hintText: 'pick Time',
             ),
           ),
           const SizedBox(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/bottombar.dart';
 import '../widgets/tile.dart';
 
 class Home extends StatefulWidget {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import '../provider/tasks.dart';
 
 class NewTask extends StatefulWidget {
   const NewTask({super.key});

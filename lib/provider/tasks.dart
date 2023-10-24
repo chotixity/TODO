@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/task.dart';
 
 class Tasks extends ChangeNotifier {
+   
   /*A  task should have the following:
   Name, Description, Date, Type ?, start time and end time, Mark as completed
   
    */
+  final List<Task> _tasks = [];
 
-  static addNewTask() async {
+  List<Task> get tasks {
+    return [..._tasks];
+  }
+
+   addNewTask() async {
     ///add the task to sqlite
     ///add
     ///
+    ///
+    notifyListeners();
   }
 }

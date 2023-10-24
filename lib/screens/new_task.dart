@@ -105,7 +105,7 @@ class _NewTaskState extends State<NewTask> {
                   MaterialStatePropertyAll<Color>(theme.colorScheme.secondary),
             ),
             onPressed: () {
-              Tasks.addNewTask();
+              //Tasks.addNewTask();
             },
             child: Text(
               'SAVE',

@@ -7,11 +7,11 @@ enum Type {
   personal,
 }
 
-class Task {
+class Task implements Comparable {
   final int id;
   final String taskName;
   final String description;
-  final DateTime dateTime;
+  final DateTime date;
   final Type type;
   final TimeOfDay startTime;
   final TimeOfDay endTime;
@@ -21,10 +21,39 @@ class Task {
     this.id,
     this.taskName,
     this.description,
-    this.dateTime,
+    this.date,
     this.type,
     this.startTime,
     this.endTime,
     this.completed,
   );
+
+  Task.fromRow(Map<String, Object?> row)
+      : id = row['id'] as int,
+        taskName = row['task_name'] as String,
+        description = row['description'] as String,
+        date = row['date'] as DateTime,
+        type = row['type'] as Type,
+        startTime = row['start_time'] as TimeOfDay,
+        endTime = row['end_time'] as TimeOfDay,
+        completed = row['completed'] as bool;
+
+  //@override
+  //bool operator ==(covariant Task other) =>
+  //   startTime || endTime == other.startTime || other.endTime;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
+
+  @override
+  String toString() =>
+      'Task id=$id, taskName: $taskName, description: $description, date: $date, ';
+
+  @override
+  int compareTo(other) {
+    return
+        // TODO: implement compareTo
+        throw UnimplementedError();
+  }
 }

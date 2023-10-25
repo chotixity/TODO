@@ -42,9 +42,6 @@ class Task implements Comparable {
   //bool operator ==(covariant Task other) =>
   //   startTime || endTime == other.startTime || other.endTime;
 
-  @override
-  // TODO: implement hashCode
-  int get hashCode => super.hashCode;
 
   @override
   String toString() =>

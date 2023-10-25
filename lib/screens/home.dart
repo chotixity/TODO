@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/helpers/DBHelper.dart';
 
 import '../widgets/tile.dart';
+import '../provider/tasks.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,70 +13,92 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late final DBHelper _storage;
   double progress = 1 / 3;
+
+  @override
+  void initState() {
+    _storage = DBHelper();
+    _storage.opendatabase();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _storage.close();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Tasks>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              'Hello, Joel!',
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TaskProgress(progress: progress),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Today\'s tasks(9)',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'See All',
-                    style: TextStyle(color: Colors.blue, fontSize: 16),
+        child: provider.tasks.isEmpty
+            ? const Center(
+                child: Text('You have no tasks today'),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Hello, Joel!',
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
-                )
-              ],
-            ),
-            Flexible(
-              child: ListView(
-                children: const [
-                  Tile(
-                    title: 'Dondaa Enhancements',
-                    description: 'Bug fixes and improvements',
-                    completedSessions: '0 / 3',
-                    time: '11:00 - 13 -10',
+                  const SizedBox(
+                    height: 20,
                   ),
-                  Tile(
-                    title: 'Dondaa Enhancements',
-                    description:
-                        'Bug fixes and improvements on the UI of my app in production',
-                    completedSessions: '0 / 3',
-                    time: '11:00 - 13 -10',
+                  TaskProgress(progress: progress),
+                  const SizedBox(
+                    height: 15,
                   ),
-                  Tile(
-                    title: 'Research about ios SDK',
-                    description:
-                        'How it works and a sample project illustrating how to use it for a video feature',
-                    completedSessions: '1 / 3',
-                    time: '11:00 - 13 -10',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Today\'s tasks(9)',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'See All',
+                          style: TextStyle(color: Colors.blue, fontSize: 16),
+                        ),
+                      )
+                    ],
+                  ),
+                  Flexible(
+                    child: ListView(
+                      children: const [
+                        Tile(
+                          title: 'Dondaa Enhancements',
+                          description: 'Bug fixes and improvements',
+                          completedSessions: '0 / 3',
+                          time: '11:00 - 13 -10',
+                        ),
+                        Tile(
+                          title: 'Dondaa Enhancements',
+                          description:
+                              'Bug fixes and improvements on the UI of my app in production',
+                          completedSessions: '0 / 3',
+                          time: '11:00 - 13 -10',
+                        ),
+                        Tile(
+                          title: 'Research about ios SDK',
+                          description:
+                              'How it works and a sample project illustrating how to use it for a video feature',
+                          completedSessions: '1 / 3',
+                          time: '11:00 - 13 -10',
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
-            )
-          ],
-        ),
       ),
       //bottomNavigationBar: const BottomBar(),
     );

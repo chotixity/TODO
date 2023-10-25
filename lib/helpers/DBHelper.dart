@@ -2,22 +2,30 @@ import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import '../models/task.dart';
 
 class DBHelper {
   Database? _db;
   List<Task> _tasks = [];
   final _streamController = StreamController<List<Task>>.broadcast();
+  Stream<List<Task>> all() => _streamController.stream;
 
   ///check if the database exists
-  Future<Database> get database async {
+  Future<Database> opendatabase() async {
     if (_db != null) {
       return _db!;
     }
     _db = await _initialize();
     return _db!;
-    //if
+  }
+
+  Future<bool> close() async {
+    final db = _db;
+    if (db == null) {
+      return false;
+    }
+    await db.close();
+    return true;
   }
 
   ///create database
@@ -28,8 +36,8 @@ class DBHelper {
         createTasksTable(db);
 
         ///read available tasks
-        _tasks = await fetchTasks();
-        _streamController.add(_tasks);
+        //_tasks = await fetchTasks();
+        //_streamController.add(_tasks);
       },
       version: 1,
     );
@@ -38,20 +46,18 @@ class DBHelper {
 
   ///create Table
   Future<void> createTasksTable(Database database) async {
-    await database.execute(
-      '''CREATE TABLE IF NOT EXISTS TASKS (
-      'id' INTEGER NOT NULL,
-      'task_name' TEXT NOT NULL,
-      'description' TEXT,
-      'type' TEXT NOT NULL,
-      'date' TEXT,   
-      'start_time, TEXT NOT NULL,
-      'end_time' TEXT NOT NULL,
-      'completed' TEXT NOT NULL,
-      PRIMARY KEY('id' AUTOINCREMENT)
-    )
-    ''',
-    );
+    const sql = '''CREATE TABLE IF NOT EXISTS TASKS (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  task_name TEXT NOT NULL,
+  description TEXT,
+  type TEXT NOT NULL,
+  date TEXT,
+  start_time TEXT NOT NULL,
+  end_time TEXT NOT NULL,
+  completed TEXT NOT NULL
+);''';
+
+    await database.execute(sql);
   }
 
   Future<List<Task>> fetchTasks() async {
@@ -60,15 +66,31 @@ class DBHelper {
       return [];
     }
     try {
-      final read = await db.query(
-        'TASKS',
-        distinct: true,
-      );
+      final read = await db.query('TASKS',
+          distinct: true,
+          groupBy: 'date',
+          where: 'date = ?',
+          orderBy: 'start_time',
+          columns: [
+            'task_name',
+            'description',
+            'start_time',
+            'end_time',
+          ]);
       final tasks = read.map((row) => Task.fromRow(row)).toList();
       return tasks;
     } catch (e) {
       print(e);
       return [];
     }
+  }
+
+  Future<void> insertTask(Task task) async {
+    final db = _db;
+    db!.insert('TASKS', {
+      'task_name': task.taskName,
+      'description': task.description,
+      'type': task.type,
+    });
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+
 class NewTask extends StatefulWidget {
   const NewTask({super.key});
 
@@ -58,13 +60,15 @@ class _NewTaskState extends State<NewTask> {
               controller: _dateController,
               onTap: () {
                 showDatePicker(
+                  keyboardType: TextInputType.numberWithOptions(),
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now(),
                   lastDate: DateTime(2030),
                 ).then((value) {
+                  final date = DateFormat.yMMMd().format(value!);
                   setState(() {
-                    _dateController.text = value!.toString();
+                    _dateController.text = date;
                   });
                 });
               },
@@ -84,6 +88,9 @@ class _NewTaskState extends State<NewTask> {
               style: theme.textTheme.bodyLarge,
             ),
             TextField(
+              onTap: () {
+                showTimePicker(context: context, initialTime: TimeOfDay.now());
+              },
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                     onPressed: () {}, icon: const Icon(Icons.more_time)),

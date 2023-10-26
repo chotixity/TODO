@@ -54,18 +54,20 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        unselectedItemColor: Theme.of(context).colorScheme.secondary,
-        selectedItemColor: Colors.blue,
-        items: _bars,
-        onTap: _onItemTapped,
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          unselectedItemColor: Theme.of(context).colorScheme.secondary,
+          selectedItemColor: Colors.blue,
+          items: _bars,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }

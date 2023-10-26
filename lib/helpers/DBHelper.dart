@@ -6,7 +6,7 @@ import '../models/task.dart';
 
 class DBHelper {
   Database? _db;
-  List<Task> _tasks = [];
+  final List<Task> _tasks = [];
   final _streamController = StreamController<List<Task>>.broadcast();
   Stream<List<Task>> all() => _streamController.stream;
 
@@ -41,6 +41,7 @@ class DBHelper {
       },
       version: 1,
     );
+
     return database;
   }
 

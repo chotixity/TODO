@@ -23,26 +23,28 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Settings',
-            style: theme.textTheme.displayMedium,
-          ),
-          Expanded(
-            child: ListView(
-              children: [
-                focusSessions(theme),
-                const Divider(),
-                Time(theme, context),
-                Container(),
-              ],
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Settings',
+              style: theme.textTheme.displayMedium,
             ),
-          )
-        ],
+            Expanded(
+              child: ListView(
+                children: [
+                  focusSessions(theme),
+                  const Divider(),
+                  Time(theme, context),
+                  Container(),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -85,6 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               trailing: DropdownMenu<String>(
                 controller: _timeController,
+                initialSelection: '24 Hour',
                 dropdownMenuEntries: const [
                   DropdownMenuEntry<String>(
                     value: '24 Hour',

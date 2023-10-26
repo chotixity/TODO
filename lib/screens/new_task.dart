@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class NewTask extends StatefulWidget {
   const NewTask({super.key});
 
@@ -18,99 +17,101 @@ class _NewTaskState extends State<NewTask> {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Task Name',
-            style: theme.textTheme.bodyLarge,
-          ),
-          TextField(
-            controller: _taskNameController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter Task Name',
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Task Name',
+              style: theme.textTheme.bodyLarge,
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Description',
-            style: theme.textTheme.bodyLarge,
-          ),
-          TextField(
-            controller: _descriptionController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter Description',
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Date',
-            style: theme.textTheme.bodyLarge,
-          ),
-          TextField(
-            keyboardType: TextInputType.none,
-            controller: _dateController,
-            onTap: () {
-              showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate: DateTime(2030),
-              ).then((value) {
-                setState(() {
-                  _dateController.text = value!.toString();
-                });
-              });
-            },
-            decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.calendar_today_outlined)),
-              border: const OutlineInputBorder(),
-              hintText: '',
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Time',
-            style: theme.textTheme.bodyLarge,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.more_time)),
-              border: const OutlineInputBorder(),
-              hintText: 'pick Time',
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          ElevatedButton(
-            style: ButtonStyle(
-              minimumSize: MaterialStatePropertyAll<Size>(
-                Size(MediaQuery.of(context).size.width * .9, 50),
+            TextField(
+              controller: _taskNameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Task Name',
               ),
-              backgroundColor:
-                  MaterialStatePropertyAll<Color>(theme.colorScheme.secondary),
             ),
-            onPressed: () {
-              //Tasks.addNewTask();
-            },
-            child: Text(
-              'SAVE',
-              style: theme.textTheme.bodyMedium,
+            const SizedBox(
+              height: 20,
             ),
-          )
-        ],
+            Text(
+              'Description',
+              style: theme.textTheme.bodyLarge,
+            ),
+            TextField(
+              controller: _descriptionController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Description',
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Date',
+              style: theme.textTheme.bodyLarge,
+            ),
+            TextField(
+              keyboardType: TextInputType.none,
+              controller: _dateController,
+              onTap: () {
+                showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2030),
+                ).then((value) {
+                  setState(() {
+                    _dateController.text = value!.toString();
+                  });
+                });
+              },
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.calendar_today_outlined)),
+                border: const OutlineInputBorder(),
+                hintText: '',
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Time',
+              style: theme.textTheme.bodyLarge,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.more_time)),
+                border: const OutlineInputBorder(),
+                hintText: 'pick Time',
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                minimumSize: MaterialStatePropertyAll<Size>(
+                  Size(MediaQuery.of(context).size.width * .9, 50),
+                ),
+                backgroundColor: MaterialStatePropertyAll<Color>(
+                    theme.colorScheme.secondary),
+              ),
+              onPressed: () {
+                //Tasks.addNewTask();
+              },
+              child: Text(
+                'SAVE',
+                style: theme.textTheme.bodyMedium,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

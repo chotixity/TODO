@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
         child: provider.tasks.isEmpty
             ? const Center(
-                child: Text('You have no tasks today'),
+                child: Text('You have no tasks today  do something'),
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.start,

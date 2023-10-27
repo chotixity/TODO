@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/new_task.dart';
+import 'package:todo_app/screens/settings_final.dart';
 import '../screens/settings.dart';
 import '../screens/calendar.dart';
 import '../screens/home.dart';
@@ -18,7 +19,7 @@ class _BottomBarState extends State<BottomBar> {
     Calendar(),
     NewTask(),
     Text('my name is choti'),
-    SettingsPage(),
+    SettingsFinal(),
   ];
   final List<BottomNavigationBarItem> _bars = [
     const BottomNavigationBarItem(

@@ -58,10 +58,8 @@ class _BottomBarState extends State<BottomBar> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
           unselectedItemColor: Theme.of(context).colorScheme.secondary,

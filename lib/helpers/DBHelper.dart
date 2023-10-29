@@ -88,10 +88,18 @@ class DBHelper {
 
   Future<void> insertTask(Task task) async {
     final db = _db;
-    db!.insert('TASKS', {
-      'task_name': task.taskName,
-      'description': task.description,
-      'type': task.type,
-    });
+    try {
+      db!.insert('TASKS', {
+        'task_name': task.taskName,
+        'description': task.description,
+        'type': task.type,
+        'date': task.date,
+        'start_time': task.startTime,
+        'end_time': task.endTime,
+        'completed': task.completed
+      });
+    } catch (e) {
+      print('$e');
+    }
   }
 }

@@ -18,7 +18,7 @@ class _BottomBarState extends State<BottomBar> {
     AppBar(),
     AppBar(),
     AppBar(
-      title: const Text('Add New Task'),
+      title: const Text('Add Task'),
     ),
     AppBar(),
     AppBar(),

@@ -14,6 +14,15 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
+  final List<AppBar> _appbars = [
+    AppBar(),
+    AppBar(),
+    AppBar(
+      title: const Text('Add New Task'),
+    ),
+    AppBar(),
+    AppBar(),
+  ];
   static const List<Widget> _widgetOptions = [
     Home(),
     Calendar(),
@@ -59,6 +68,7 @@ class _BottomBarState extends State<BottomBar> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: _appbars.elementAt(_selectedIndex),
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,

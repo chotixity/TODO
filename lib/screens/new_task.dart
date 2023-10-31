@@ -23,24 +23,48 @@ class _NewTaskState extends State<NewTask> {
   final TextEditingController _timeController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
   final DateTime _pickedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+  TimeOfDay endTime = TimeOfDay.now();
   int _counter = 0;
 
-  TimeOfDay endTime() {
-    List elements = _timeController.text.split(':');
-    var second = elements[1].toString().split(' ').elementAt(0);
-    //print(elements);
-    //print(second);
+  void _addMinutes() {
     const session = 25;
-    int minutes = _counter * session;
-    int hours = minutes ~/ 60;
-    int minut = minutes % 60;
+    var newHour = selectedTime.hour;
+    num minutes = _counter * session + selectedTime.minute;
+    int newMinute = selectedTime.minute + minutes as int;
+
+    // If the sum of minutes exceeds 59, adjust the hour and minute
+    if (newMinute >= 60) {
+      newHour += newMinute ~/ 60;
+      newMinute %= 60;
+    }
+
+    final updatedTime = TimeOfDay(hour: newHour, minute: newMinute);
+
+    setState(() {
+      endTime = updatedTime;
+    });
+  }
+
+  void calculateEndTime() {
+    //final startTime = _timeController.text ?? TimeOfDay.now().format(context);
+    List elements = _timeController.text.split(':');
+    var second = elements[1]?.toString().split(' ').elementAt(0);
+    print(elements);
+    print(second);
+    const session = 25;
     final time = TimeOfDay(
       hour: int.parse(elements[0]),
-      minute: int.parse(second),
+      minute: int.parse(second!),
     );
-    final endTime =
-        time.replacing(hour: time.hour + hours, minute: time.minute + minut);
-    return endTime;
+    num minutes = _counter * session + time.minute;
+    int hours = time.hour + minutes ~/ 60;
+    int minut = minutes % 60 as int;
+
+    final finalTime = time.replacing(hour: hours, minute: minut);
+    setState(() {
+      endTime = finalTime;
+    });
     //print(time);
   }
 
@@ -92,18 +116,18 @@ class _NewTaskState extends State<NewTask> {
               TextField(
                 keyboardType: TextInputType.none,
                 controller: _dateController,
-                onTap: () {
-                  showDatePicker(
+                onTap: () async {
+                  DateTime? selectedDate = await showDatePicker(
                     keyboardType: const TextInputType.numberWithOptions(),
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2030),
-                  ).then((value) {
-                    final date = DateFormat.yMMMd().format(value!);
-                    setState(() {
-                      _dateController.text = date;
-                    });
+                  );
+
+                  setState(() {
+                    _dateController.text =
+                        DateFormat.yMd().format(selectedDate!);
                   });
                 },
                 decoration: InputDecoration(
@@ -112,33 +136,6 @@ class _NewTaskState extends State<NewTask> {
                       icon: const Icon(Icons.calendar_today_outlined)),
                   border: const OutlineInputBorder(),
                   hintText: '',
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                'Time',
-                style: theme.textTheme.bodyLarge,
-              ),
-              TextField(
-                controller: _timeController,
-                onTap: () {
-                  showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  ).then((value) {
-                    print(value!.format(context));
-                    setState(() {
-                      _timeController.text = value.format(context);
-                    });
-                  });
-                },
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.more_time)),
-                  border: const OutlineInputBorder(),
-                  hintText: 'pick Time',
                 ),
               ),
               const SizedBox(
@@ -171,21 +168,26 @@ class _NewTaskState extends State<NewTask> {
                         children: [
                           const Text('Start Time'),
                           InkWell(
-                            onTap: () {
-                              showTimePicker(
+                            onTap: () async {
+                              final TimeOfDay? pickedTime =
+                                  await showTimePicker(
                                 initialEntryMode: TimePickerEntryMode.input,
                                 context: context,
                                 initialTime: TimeOfDay.now(),
-                              ).then((value) {
-                                print(value!.format(context));
+                              );
+
+                              if (pickedTime != null &&
+                                  pickedTime != selectedTime) {
                                 setState(() {
-                                  _timeController.text = value.format(context);
+                                  selectedTime = pickedTime;
                                 });
-                                endTime();
-                              });
+                              }
+                              _addMinutes();
                             },
                             child: Text(
-                              _timeController.text,
+                              selectedTime == TimeOfDay.now()
+                                  ? TimeOfDay.now().format(context)
+                                  : selectedTime.format(context),
                             ),
                           )
                         ],
@@ -202,7 +204,11 @@ class _NewTaskState extends State<NewTask> {
                       child: Column(
                         children: [
                           const Text('End Time'),
-                          Text(endTime().format(context))
+                          Text(
+                            _counter == 0 || selectedTime == TimeOfDay.now()
+                                ? TimeOfDay.now().format(context)
+                                : endTime.format(context),
+                          )
                         ],
                       ),
                     )
@@ -226,6 +232,7 @@ class _NewTaskState extends State<NewTask> {
                         setState(() {
                           _counter > 0 ? _counter-- : 0;
                         });
+                        _addMinutes();
                       },
                       icon: const Icon(Icons.minimize_outlined),
                     ),
@@ -238,6 +245,7 @@ class _NewTaskState extends State<NewTask> {
                         setState(() {
                           _counter++;
                         });
+                        _addMinutes();
                       },
                       icon: const Icon(Icons.add),
                     )

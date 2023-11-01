@@ -9,7 +9,48 @@ class Tasks extends ChangeNotifier {
   Name, Description, Date, Type ?, start time and end time, Mark as completed
   
    */
-  List<Task> _tasks = [];
+  List<Task> _tasks = [
+    Task(
+      1,
+      'Go to School',
+      'Do Araka\'s Assignment',
+      DateTime.now(),
+      Type.personal,
+      TimeOfDay.now(),
+      TimeOfDay.now(),
+      false,
+    ),
+    Task(
+      1,
+      'Go to School',
+      'Do Araka\'s Assignment',
+      DateTime.now(),
+      Type.personal,
+      TimeOfDay.now(),
+      TimeOfDay.now(),
+      false,
+    ),
+    Task(
+      1,
+      'Go to School',
+      'Do Araka\'s Assignment',
+      DateTime.now(),
+      Type.personal,
+      TimeOfDay.now(),
+      TimeOfDay.now(),
+      false,
+    ),
+    Task(
+      1,
+      'Go to School',
+      'Do Araka\'s Assignment',
+      DateTime.now(),
+      Type.personal,
+      TimeOfDay.now(),
+      TimeOfDay.now(),
+      false,
+    ),
+  ];
 
   List<Task> get tasks {
     return [..._tasks];

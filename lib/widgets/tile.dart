@@ -5,12 +5,13 @@ class Tile extends StatelessWidget {
   final String description;
   final String completedSessions;
   final String time;
-  const Tile(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.completedSessions,
-      required this.time});
+  const Tile({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.completedSessions,
+    required this.time,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,18 @@ class Tile extends StatelessWidget {
                       size: 40,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return const Column(
+                              children: [
+                                ListTile(),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       icon: const Icon(
                         Icons.play_circle,
                         size: 40,

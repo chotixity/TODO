@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Today\'s tasks(9)',
+                        'Today\'s tasks ${provider.tasks.length}',
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       TextButton(
@@ -73,21 +73,21 @@ class _HomeState extends State<Home> {
                   ),
                   Flexible(
                     child: ListView(
-                      children: const [
+                      children: [
                         Tile(
-                          title: 'Dondaa Enhancements',
-                          description: 'Bug fixes and improvements',
+                          title: provider.tasks[0].taskName,
+                          description: provider.tasks[0].description,
                           completedSessions: '0 / 3',
                           time: '11:00 - 13 -10',
                         ),
-                        Tile(
+                        const Tile(
                           title: 'Dondaa Enhancements',
                           description:
                               'Bug fixes and improvements on the UI of my app in production',
                           completedSessions: '0 / 3',
                           time: '11:00 - 13 -10',
                         ),
-                        Tile(
+                        const Tile(
                           title: 'Research about ios SDK',
                           description:
                               'How it works and a sample project illustrating how to use it for a video feature',

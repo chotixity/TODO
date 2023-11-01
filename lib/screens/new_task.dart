@@ -46,28 +46,6 @@ class _NewTaskState extends State<NewTask> {
     });
   }
 
-  void calculateEndTime() {
-    //final startTime = _timeController.text ?? TimeOfDay.now().format(context);
-    List elements = _timeController.text.split(':');
-    var second = elements[1]?.toString().split(' ').elementAt(0);
-    print(elements);
-    print(second);
-    const session = 25;
-    final time = TimeOfDay(
-      hour: int.parse(elements[0]),
-      minute: int.parse(second!),
-    );
-    num minutes = _counter * session + time.minute;
-    int hours = time.hour + minutes ~/ 60;
-    int minut = minutes % 60 as int;
-
-    final finalTime = time.replacing(hour: hours, minute: minut);
-    setState(() {
-      endTime = finalTime;
-    });
-    //print(time);
-  }
-
   //final hour  = _timeController.text.split(':').elementAt(0);
   //void endTime = TimeOfDay(hour: _timeController.text.split(':'), minute: minute)
 

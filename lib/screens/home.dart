@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final DBHelper _storage;
-  double progress = 1 / 3;
+  //double progress = 1 / 3;
 
   @override
   void initState() {
@@ -34,6 +34,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Tasks>(context, listen: false);
+    double progress = provider.completedTasks();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
@@ -120,7 +121,7 @@ class TaskProgress extends StatelessWidget {
       height: 150,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
+        //color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Row(
@@ -139,7 +140,7 @@ class TaskProgress extends StatelessWidget {
                   height: 90,
                   width: 90,
                   child: CircularProgressIndicator(
-                    backgroundColor: theme.colorScheme.primary,
+                    //backgroundColor: theme.colorScheme.primary,
                     color: Colors.white,
                     value: progress,
                     strokeWidth: 10,

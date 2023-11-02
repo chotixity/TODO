@@ -48,12 +48,17 @@ class Tasks extends ChangeNotifier {
       Type.personal,
       TimeOfDay.now(),
       TimeOfDay.now(),
-      false,
+      true,
     ),
   ];
 
   List<Task> get tasks {
     return [..._tasks];
+  }
+
+  double completedTasks() {
+    final completedTasks = tasks.where((task) => task.completed == true);
+    return completedTasks.length / tasks.length;
   }
 
   addNewTask(Task task) async {

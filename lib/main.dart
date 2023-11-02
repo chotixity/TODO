@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/provider/tasks.dart';
 
@@ -22,10 +23,14 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
-            textTheme: const TextTheme(
+            textTheme: TextTheme(
               displayMedium:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )),
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              titleLarge:
+                  GoogleFonts.oswald(fontSize: 18, fontWeight: FontWeight.w700),
+              bodyMedium: GoogleFonts.lato(),
+            ),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.white)),
         darkTheme: darkTheme,
         home: const BottomBar(),
       ),

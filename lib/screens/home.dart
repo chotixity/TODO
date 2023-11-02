@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     'Hello, Joel!',
-                    style: Theme.of(context).textTheme.displayMedium,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(
                     height: 20,
@@ -60,8 +60,12 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Today\'s tasks ${provider.tasks.length}',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        'Today\'s tasks(${provider.tasks.length})',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                                color: Theme.of(context).colorScheme.secondary),
                       ),
                       TextButton(
                         onPressed: () {},
@@ -117,11 +121,12 @@ class TaskProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final provider = Provider.of<Tasks>(context);
     return Container(
       height: 150,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        //color: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Row(
@@ -134,14 +139,17 @@ class TaskProgress extends StatelessWidget {
                 Center(
                     child: Text(
                   '${(progress * 100).round()}%',
-                  style: Theme.of(context).textTheme.displayMedium,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayMedium!
+                      .copyWith(color: theme.colorScheme.onPrimary),
                 )),
                 SizedBox(
                   height: 90,
                   width: 90,
                   child: CircularProgressIndicator(
                     //backgroundColor: theme.colorScheme.primary,
-                    color: Colors.white,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     value: progress,
                     strokeWidth: 10,
                     valueColor:
@@ -162,14 +170,16 @@ class TaskProgress extends StatelessWidget {
                 children: [
                   Text(
                     'You\'re almost halfway through your daily tasks',
-                    style: theme.textTheme.displayMedium,
+                    style: theme.textTheme.displayMedium!
+                        .copyWith(color: theme.colorScheme.onPrimary),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
-                    '3 of 9 tasks completed',
-                    style: theme.textTheme.bodyMedium,
+                    '${provider.tasks.where((task) => task.completed == true).length} of ${provider.tasks.length} tasks completed',
+                    style: theme.textTheme.bodyMedium!
+                        .copyWith(color: theme.colorScheme.onPrimary),
                   ),
                 ],
               ),

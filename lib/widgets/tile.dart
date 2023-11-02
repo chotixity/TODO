@@ -33,19 +33,40 @@ class Tile extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: Text(
                           title,
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                         ),
                       ),
-                      Text(
-                        description,
-                        maxLines: 2,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          description,
+                          maxLines: 2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(completedSessions.toString()),
-                      Text(time)
+                      Text(
+                        completedSessions.toString(),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ),
+                      Text(
+                        time,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      )
                     ],
                   ),
                 ),
@@ -54,26 +75,58 @@ class Tile extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(
-                      Icons.more_vert,
-                      size: 40,
-                    ),
                     IconButton(
                       onPressed: () {
                         showBottomSheet(
                           context: context,
                           builder: (context) {
-                            return const Column(
-                              children: [
-                                ListTile(),
-                              ],
+                            return SizedBox(
+                              height: 300,
+                              child: Column(
+                                children: [
+                                  const ListTile(
+                                    leading: Icon(Icons.edit),
+                                    title: Text('Edit Task'),
+                                  ),
+                                  const ListTile(
+                                    leading: Icon(Icons.edit_calendar),
+                                    title: Text('Push to Tomorrow'),
+                                  ),
+                                  const ListTile(
+                                    leading: Icon(Icons.done),
+                                    title: Text('Mark as Completed'),
+                                  ),
+                                  const ListTile(
+                                    leading: Icon(Icons.delete),
+                                    title: Text('Delete Task'),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const ListTile(
+                                      leading: Icon(Icons.cancel),
+                                      title: Text('cancel'),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             );
                           },
                         );
                       },
-                      icon: const Icon(
+                      icon: Icon(
+                        Icons.more_vert,
+                        size: 40,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
                         Icons.play_circle,
                         size: 40,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     )
                   ],

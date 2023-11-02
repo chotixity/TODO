@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../helpers/DBHelper.dart';
 import '../models/task.dart';
@@ -9,6 +10,7 @@ class Tasks extends ChangeNotifier {
   Name, Description, Date, Type ?, start time and end time, Mark as completed
   
    */
+
   List<Task> _tasks = [
     Task(
       1,
@@ -22,7 +24,7 @@ class Tasks extends ChangeNotifier {
     ),
     Task(
       1,
-      'Go to School',
+      'Sleep',
       'Do Araka\'s Assignment',
       DateTime.now(),
       Type.personal,
@@ -34,7 +36,7 @@ class Tasks extends ChangeNotifier {
       1,
       'Go to School',
       'Do Araka\'s Assignment',
-      DateTime.now(),
+      DateTime.now().add(const Duration(days: 1)),
       Type.personal,
       TimeOfDay.now(),
       TimeOfDay.now(),
@@ -42,13 +44,13 @@ class Tasks extends ChangeNotifier {
     ),
     Task(
       1,
-      'Go to School',
+      'Hello',
       'Do Araka\'s Assignment',
       DateTime.now(),
       Type.personal,
       TimeOfDay.now(),
       TimeOfDay.now(),
-      true,
+      false,
     ),
   ];
 
@@ -56,8 +58,15 @@ class Tasks extends ChangeNotifier {
     return [..._tasks];
   }
 
+  List<Task> todayTask(String day) {
+    return tasks
+        .where((task) => DateFormat.yMMMd().format(task.date) == day)
+        .toList();
+  }
+
   double completedTasks() {
     final completedTasks = tasks.where((task) => task.completed == true);
+    notifyListeners();
     return completedTasks.length / tasks.length;
   }
 

@@ -1,71 +1,53 @@
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../provider/tasks.dart';
+import '../models/task.dart';
 
-class Calendar extends StatelessWidget {
+class Calendar extends StatefulWidget {
   const Calendar({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-      child: Column(
-        children: [
-          Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Calendar',
-                  style: theme.textTheme.displayMedium,
-                ),
-                Text(
-                  DateFormat.yMMM().format(DateTime.now()),
-                  style: theme.textTheme.displayMedium,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 100,
-            child: Expanded(
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: 7,
-                separatorBuilder: (context, index) {
-                  return const VerticalDivider(
-                    width: 20,
-                    //color: Colors.amber,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  return const DaysTile();
-                },
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  State<Calendar> createState() => _CalendarState();
 }
 
-class DaysTile extends StatelessWidget {
-  const DaysTile({super.key});
-
+class _CalendarState extends State<Calendar> {
+  String pickedDate = DateFormat.yMMMd().format(DateTime.now());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //height: 30,
-      width: 80,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.black26,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(DateFormat.E().format(DateTime.now()))],
+    final theme = Theme.of(context);
+    Tasks provider = Provider.of<Tasks>(context);
+    List<Task> todayTasks = provider.todayTask(pickedDate);
+    return Padding(
+      padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            CalendarDatePicker(
+              initialDate: DateTime(2023),
+              firstDate: DateTime(2023),
+              lastDate: DateTime.now().add(const Duration(days: 100000)),
+              onDateChanged: (DateTime value) {
+                setState(() {
+                  pickedDate = DateFormat.yMMMd().format(value);
+                });
+              },
+            ),
+            Text(pickedDate),
+            SizedBox(
+              height: 400,
+              child: ListView.builder(
+                itemCount: todayTasks.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(todayTasks[index].taskName),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

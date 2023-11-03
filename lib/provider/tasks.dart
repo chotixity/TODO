@@ -11,48 +11,7 @@ class Tasks extends ChangeNotifier {
   
    */
 
-  List<Task> _tasks = [
-    Task(
-      1,
-      'Go to School',
-      'Do Araka\'s Assignment',
-      DateTime.now(),
-      Type.personal,
-      TimeOfDay.now(),
-      TimeOfDay.now(),
-      false,
-    ),
-    Task(
-      1,
-      'Sleep',
-      'Do Araka\'s Assignment',
-      DateTime.now(),
-      Type.personal,
-      TimeOfDay.now(),
-      TimeOfDay.now(),
-      false,
-    ),
-    Task(
-      1,
-      'Go to School',
-      'Do Araka\'s Assignment',
-      DateTime.now().add(const Duration(days: 1)),
-      Type.personal,
-      TimeOfDay.now(),
-      TimeOfDay.now(),
-      false,
-    ),
-    Task(
-      1,
-      'Hello',
-      'Do Araka\'s Assignment',
-      DateTime.now(),
-      Type.personal,
-      TimeOfDay.now(),
-      TimeOfDay.now(),
-      false,
-    ),
-  ];
+  List<Task> _tasks = [];
 
   List<Task> get tasks {
     return [..._tasks];
@@ -66,7 +25,6 @@ class Tasks extends ChangeNotifier {
 
   double completedTasks() {
     final completedTasks = tasks.where((task) => task.completed == true);
-    notifyListeners();
     return completedTasks.length / tasks.length;
   }
 
@@ -77,6 +35,11 @@ class Tasks extends ChangeNotifier {
     ///add
     ///
     ///
+    notifyListeners();
+  }
+
+  deleteTask(int index) {
+    _tasks.removeAt(index);
     notifyListeners();
   }
 

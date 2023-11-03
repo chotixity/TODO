@@ -77,29 +77,17 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   Flexible(
-                    child: ListView(
-                      children: [
-                        Tile(
-                          title: provider.tasks[0].taskName,
-                          description: provider.tasks[0].description,
-                          completedSessions: '0 / 3',
-                          time: '11:00 - 13 -10',
-                        ),
-                        const Tile(
-                          title: 'Dondaa Enhancements',
-                          description:
-                              'Bug fixes and improvements on the UI of my app in production',
-                          completedSessions: '0 / 3',
-                          time: '11:00 - 13 -10',
-                        ),
-                        const Tile(
-                          title: 'Research about ios SDK',
-                          description:
-                              'How it works and a sample project illustrating how to use it for a video feature',
-                          completedSessions: '1 / 3',
-                          time: '11:00 - 13 -10',
-                        )
-                      ],
+                    child: ListView.builder(
+                      itemCount: provider.tasks.length,
+                      itemBuilder: ((context, index) {
+                        return Tile(
+                          title: provider.tasks[index].taskName,
+                          description: provider.tasks[index].description,
+                          //completedSessions: '0 / 3',
+                          time:
+                              '${provider.tasks[index].startTime.format(context)} - ${provider.tasks[index].endTime.format(context)}',
+                        );
+                      }),
                     ),
                   )
                 ],

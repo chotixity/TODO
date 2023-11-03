@@ -41,6 +41,12 @@ class _CalendarState extends State<Calendar> {
                 itemCount: todayTasks.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    leading: Icon(
+                      todayTasks[index].completed
+                          ? Icons.done
+                          : Icons.timelapse,
+                    ),
+                    subtitle: Text(provider.tasks[index].description),
                     title: Text(todayTasks[index].taskName),
                   );
                 },

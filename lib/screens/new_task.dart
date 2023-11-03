@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:todo_app/models/task.dart';
+import 'package:todo_app/provider/tasks.dart';
 
 enum Type {
   Study,
@@ -51,6 +53,7 @@ class _NewTaskState extends State<NewTask> {
 
   @override
   Widget build(BuildContext context) {
+    final tasks = Tasks();
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -240,7 +243,17 @@ class _NewTaskState extends State<NewTask> {
                       theme.colorScheme.secondary),
                 ),
                 onPressed: () {
-                  //Tasks.addNewTask();
+                  tasks.addNewTask(
+                    Task(
+                      _taskNameController.text,
+                      _descriptionController.text,
+                      DateTime(int.parse(_dateController.text)),
+                      _typeController,
+                      selectedTime,
+                      endTime,
+                      false,
+                    ),
+                  );
                 },
                 child: Text(
                   'SAVE',

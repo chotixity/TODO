@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class Tile extends StatelessWidget {
   final String title;
   final String description;
-  final String completedSessions;
+  //final String completedSessions;
   final String time;
   const Tile({
     super.key,
     required this.title,
     required this.description,
-    required this.completedSessions,
+    //required this.completedSessions,
     required this.time,
   });
 
@@ -58,11 +58,6 @@ class Tile extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        completedSessions.toString(),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary),
-                      ),
-                      Text(
                         time,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary),
@@ -96,9 +91,12 @@ class Tile extends StatelessWidget {
                                     leading: Icon(Icons.done),
                                     title: Text('Mark as Completed'),
                                   ),
-                                  const ListTile(
-                                    leading: Icon(Icons.delete),
-                                    title: Text('Delete Task'),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: const ListTile(
+                                      leading: Icon(Icons.delete),
+                                      title: Text('Delete Task'),
+                                    ),
                                   ),
                                   InkWell(
                                     onTap: () {

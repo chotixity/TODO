@@ -8,7 +8,7 @@ enum Type {
 }
 
 class Task implements Comparable {
-  final int id;
+  //final int id;
   final String taskName;
   final String description;
   final DateTime date;
@@ -18,7 +18,7 @@ class Task implements Comparable {
   final bool completed;
 
   Task(
-    this.id,
+    //this.id,
     this.taskName,
     this.description,
     this.date,
@@ -29,7 +29,7 @@ class Task implements Comparable {
   );
 
   Task.fromRow(Map<String, Object?> row)
-      : id = row['id'] as int,
+      : //id = row['id'] as int,
         taskName = row['task_name'] as String,
         description = row['description'] as String,
         date = row['date'] as DateTime,
@@ -42,10 +42,9 @@ class Task implements Comparable {
   //bool operator ==(covariant Task other) =>
   //   startTime || endTime == other.startTime || other.endTime;
 
-
   @override
   String toString() =>
-      'Task id=$id, taskName: $taskName, description: $description, date: $date, ';
+      'Task taskName: $taskName, description: $description, date: $date, ';
 
   @override
   int compareTo(other) {

@@ -12,7 +12,7 @@ class Task implements Comparable {
   final String taskName;
   final String description;
   final DateTime date;
-  final Type type;
+  final String type;
   final TimeOfDay startTime;
   final TimeOfDay endTime;
   final bool completed;
@@ -33,7 +33,7 @@ class Task implements Comparable {
         taskName = row['task_name'] as String,
         description = row['description'] as String,
         date = row['date'] as DateTime,
-        type = row['type'] as Type,
+        type = row['type'] as String,
         startTime = row['start_time'] as TimeOfDay,
         endTime = row['end_time'] as TimeOfDay,
         completed = row['completed'] as bool;

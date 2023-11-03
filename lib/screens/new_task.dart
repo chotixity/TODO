@@ -247,8 +247,8 @@ class _NewTaskState extends State<NewTask> {
                     Task(
                       _taskNameController.text,
                       _descriptionController.text,
-                      DateTime(int.parse(_dateController.text)),
-                      _typeController,
+                      DateFormat('yMd').parse(_dateController.text),
+                      _typeController.text,
                       selectedTime,
                       endTime,
                       false,

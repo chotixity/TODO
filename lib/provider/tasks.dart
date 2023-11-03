@@ -31,6 +31,7 @@ class Tasks extends ChangeNotifier {
   addNewTask(Task task) async {
     ///add the task to sqlite
     _dbHelper.insertTask(task);
+    print(task.toString());
 
     ///add
     ///

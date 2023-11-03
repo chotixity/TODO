@@ -14,12 +14,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final DBHelper _storage;
+  final Tasks _tasks = Tasks();
   //double progress = 1 / 3;
 
   @override
   void initState() {
     _storage = DBHelper();
     _storage.opendatabase();
+    _tasks.fetchTasks();
     // TODO: implement initState
     super.initState();
   }

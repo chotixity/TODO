@@ -254,6 +254,9 @@ class _NewTaskState extends State<NewTask> {
                       false,
                     ),
                   );
+                  _taskNameController.text = '';
+                  _descriptionController.text = '';
+                  _dateController.text = '';
                 },
                 child: Text(
                   'SAVE',

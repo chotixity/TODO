@@ -19,9 +19,9 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    _storage = DBHelper();
-    _storage.opendatabase();
-    _tasks.fetchTasks();
+    //_storage = DBHelper();
+    //_storage.opendatabase();
+    //_tasks.fetchTasks();
     // TODO: implement initState
     super.initState();
   }
@@ -44,55 +44,59 @@ class _HomeState extends State<Home> {
             ? const Center(
                 child: Text('You have no tasks today  do something'),
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Hello, Joel!',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TaskProgress(progress: progress),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Today\'s tasks(${provider.tasks.length})',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                                color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'See All',
-                          style: TextStyle(color: Colors.blue, fontSize: 16),
-                        ),
-                      )
-                    ],
-                  ),
-                  Flexible(
-                    child: ListView.builder(
-                      itemCount: provider.tasks.length,
-                      itemBuilder: ((context, index) {
-                        return Tile(
-                          title: provider.tasks[index].taskName,
-                          description: provider.tasks[index].description,
-                          //completedSessions: '0 / 3',
-                          time:
-                              '${provider.tasks[index].startTime.format(context)} - ${provider.tasks[index].endTime.format(context)}',
-                        );
-                      }),
+            : FutureBuilder(
+                future: provider.fetchTasks(),
+                builder: (context, snapshot) => Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hello, Joel!',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TaskProgress(progress: progress),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Today\'s tasks(${provider.tasks.length})',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(color: Colors.blue, fontSize: 16),
+                          ),
+                        )
+                      ],
+                    ),
+                    Flexible(
+                      child: ListView.builder(
+                        itemCount: provider.tasks.length,
+                        itemBuilder: ((context, index) {
+                          return Tile(
+                            title: provider.tasks[index].taskName,
+                            description: provider.tasks[index].description,
+                            //completedSessions: '0 / 3',
+                            time:
+                                '${provider.tasks[index].startTime.format(context)} - ${provider.tasks[index].endTime.format(context)}',
+                          );
+                        }),
+                      ),
+                    )
+                  ],
+                ),
               ),
       ),
       //bottomNavigationBar: const BottomBar(),
@@ -127,13 +131,14 @@ class TaskProgress extends StatelessWidget {
             child: Stack(
               children: [
                 Center(
-                    child: Text(
-                  '${(progress * 100).round()}%',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium!
-                      .copyWith(color: theme.colorScheme.onPrimary),
-                )),
+                  child: Text(
+                    '${(progress * 100).round()}%',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .copyWith(color: theme.colorScheme.onPrimary),
+                  ),
+                ),
                 SizedBox(
                   height: 90,
                   width: 90,

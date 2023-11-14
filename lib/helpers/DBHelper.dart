@@ -70,7 +70,7 @@ class DBHelper {
       final read = await db.query('TASKS',
           distinct: true,
           groupBy: 'date',
-          where: 'date = ?',
+          //where: 'date = ?',
           orderBy: 'start_time',
           columns: [
             'task_name',

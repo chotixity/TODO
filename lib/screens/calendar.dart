@@ -21,39 +21,43 @@ class _CalendarState extends State<Calendar> {
     List<Task> todayTasks = provider.todayTask(pickedDate);
     return Padding(
       padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            CalendarDatePicker(
-              initialDate: DateTime(2023),
-              firstDate: DateTime(2023),
-              lastDate: DateTime.now().add(const Duration(days: 100000)),
-              onDateChanged: (DateTime value) {
-                setState(() {
-                  pickedDate = DateFormat.yMMMd().format(value);
-                });
-              },
+      child: CustomScrollView(
+        slivers: [
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                CalendarDatePicker(
+                  initialDate: DateTime(2023),
+                  firstDate: DateTime(2023),
+                  lastDate: DateTime.now().add(const Duration(days: 100000)),
+                  onDateChanged: (DateTime value) {
+                    setState(() {
+                      pickedDate = DateFormat.yMMMd().format(value);
+                    });
+                  },
+                ),
+                Text(pickedDate),
+                SizedBox(
+                  height: 400,
+                  child: ListView.builder(
+                    itemCount: todayTasks.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Icon(
+                          todayTasks[index].completed
+                              ? Icons.done
+                              : Icons.timelapse,
+                        ),
+                        subtitle: Text(provider.tasks[index].description),
+                        title: Text(todayTasks[index].taskName),
+                      );
+                    },
+                  ),
+                )
+              ],
             ),
-            Text(pickedDate),
-            SizedBox(
-              height: 400,
-              child: ListView.builder(
-                itemCount: todayTasks.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Icon(
-                      todayTasks[index].completed
-                          ? Icons.done
-                          : Icons.timelapse,
-                    ),
-                    subtitle: Text(provider.tasks[index].description),
-                    title: Text(todayTasks[index].taskName),
-                  );
-                },
-              ),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

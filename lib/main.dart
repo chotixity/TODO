@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/navigation/app_router.dart';
+import 'package:todo_app/provider/appstatemanager.dart';
 import 'package:todo_app/provider/tasks.dart';
 import 'theme/appTheme.dart';
 import './widgets/bottombar.dart';
@@ -29,6 +30,7 @@ class _TODOAppState extends State<TODOApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<Tasks>(create: (_) => Tasks()),
+        ChangeNotifierProvider(create: (_) => AppStateManager())
       ],
       child: MaterialApp.router(
         routeInformationParser: _approuter.routeInformationParser,

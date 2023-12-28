@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+import 'package:todo_app/provider/appstatemanager.dart';
 
 import '../screens/screens.dart';
 
@@ -68,7 +71,16 @@ class _BottomBarState extends State<BottomBar> {
           unselectedItemColor: Theme.of(context).colorScheme.secondary,
           selectedItemColor: Colors.blue,
           items: _bars,
-          onTap: _onItemTapped,
+          onTap: (index) {
+            Provider.of<AppStateManager>(context, listen: false).gotoTab(index);
+            print(index);
+            context.goNamed(
+              'home',
+              pathParameters: {
+                'tab': '$index',
+              },
+            );
+          },
         ),
       ),
     );

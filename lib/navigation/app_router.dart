@@ -9,30 +9,11 @@ class AppRouter {
     initialLocation: '/home',
     routes: [
       GoRoute(
-          path: '/home',
-          builder: (context, state) {
-            final tab = int.tryParse(state.pathParameters['tab'] ?? '') ?? 0;
-            return BottomBar(tab);
-          }),
-      GoRoute(
-        name: 'settings',
-        path: '/settings',
-        builder: (context, state) => const SettingsFinal(),
-      ),
-      GoRoute(
-        name: 'statistics',
-        path: '/statistics',
-        builder: (context, state) => const SettingsFinal(),
-      ),
-      GoRoute(
-        name: 'calendar',
-        path: '/calendar',
-        builder: (context, state) => const SettingsFinal(),
-      ),
-      GoRoute(
-        name: 'addTask',
-        path: '/add',
-        builder: (context, state) => const SettingsFinal(),
+        path: '/home',
+        builder: (context, state) {
+          final tab = int.tryParse(state.pathParameters['tab'] ?? '') ?? 0;
+          return BottomBar(tab);
+        },
       ),
     ],
     errorPageBuilder: (context, state) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+part 'task.g.dart';
 
 enum Type {
   other,
@@ -7,14 +9,22 @@ enum Type {
   personal,
 }
 
-class Task implements Comparable {
+@HiveType(typeId: 0)
+class Task extends HiveObject implements Comparable {
   //final int id;
+  @HiveField(0)
   final String taskName;
+  @HiveField(1)
   final String description;
+  @HiveField(2)
   final DateTime date;
+  @HiveField(3)
   final String type;
+  @HiveField(4)
   final TimeOfDay startTime;
+  @HiveField(5)
   final TimeOfDay endTime;
+  @HiveField(6)
   final bool completed;
 
   Task(

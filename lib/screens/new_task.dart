@@ -83,6 +83,8 @@ class _NewTaskState extends State<NewTask> {
               ),
               TextField(
                 controller: _descriptionController,
+                minLines: 1,
+                maxLines: 3,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Description',
@@ -128,6 +130,11 @@ class _NewTaskState extends State<NewTask> {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               DropdownMenu(
+                enableSearch: true,
+                requestFocusOnTap: true,
+                onSelected: (value) {
+                  FocusScope.of(context).unfocus();
+                },
                 initialSelection: Type.Other,
                 controller: _typeController,
                 width: MediaQuery.of(context).size.width * .9,

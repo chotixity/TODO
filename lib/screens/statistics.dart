@@ -19,6 +19,8 @@ class _StatisticsState extends State<Statistics> {
             height: 200,
             child: BarChart(
               BarChartData(
+                titlesData: const FlTitlesData(
+                    leftTitles: AxisTitles(sideTitles: SideTitles())),
                 minY: 0,
                 maxY: 11,
                 barGroups: [

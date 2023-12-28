@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/new_task.dart';
-import 'package:todo_app/screens/settings_final.dart';
-import 'package:todo_app/screens/statistics.dart';
-import '../screens/calendar.dart';
-import '../screens/home.dart';
+
+import '../screens/screens.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key});
+  const BottomBar(this.currentTab, {super.key});
+  final int currentTab;
 
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 0;
+  //int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = [
     Home(),
@@ -50,7 +48,7 @@ class _BottomBarState extends State<BottomBar> {
 
   void _onItemTapped(int Index) {
     setState(() {
-      _selectedIndex = Index;
+      //_selectedIndex = Index;
     });
   }
 
@@ -61,9 +59,12 @@ class _BottomBarState extends State<BottomBar> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         //appBar: _appbars.elementAt(_selectedIndex),
-        body: _widgetOptions.elementAt(_selectedIndex),
+        body: IndexedStack(
+          index: widget.currentTab,
+          children: _widgetOptions,
+        ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
+          currentIndex: widget.currentTab,
           unselectedItemColor: Theme.of(context).colorScheme.secondary,
           selectedItemColor: Colors.blue,
           items: _bars,

@@ -6,7 +6,7 @@ import 'package:todo_app/provider/appstatemanager.dart';
 import '../screens/screens.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar(this.currentTab, {super.key});
+  const BottomBar({required this.currentTab, super.key});
   final int currentTab;
 
   @override
@@ -14,7 +14,7 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  //int _selectedIndex = 0;
+  int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = [
     Home(),
@@ -51,7 +51,7 @@ class _BottomBarState extends State<BottomBar> {
 
   void _onItemTapped(int Index) {
     setState(() {
-      //_selectedIndex = Index;
+      _selectedIndex = Index;
     });
   }
 
@@ -63,7 +63,7 @@ class _BottomBarState extends State<BottomBar> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         //appBar: _appbars.elementAt(_selectedIndex),
         body: IndexedStack(
-          index: widget.currentTab,
+          index: _selectedIndex,
           children: _widgetOptions,
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -71,16 +71,17 @@ class _BottomBarState extends State<BottomBar> {
           unselectedItemColor: Theme.of(context).colorScheme.secondary,
           selectedItemColor: Colors.blue,
           items: _bars,
-          onTap: (index) {
-            Provider.of<AppStateManager>(context, listen: false).gotoTab(index);
-            print(index);
-            context.goNamed(
-              'home',
-              pathParameters: {
-                'tab': '$index',
-              },
-            );
-          },
+          onTap: _onItemTapped,
+          // onTap: (index) {
+          //   Provider.of<AppStateManager>(context, listen: false).gotoTab(index);
+          //   print(index);
+          //   context.goNamed(
+          //     'home',
+          //     pathParameters: {
+          //       'tab': '$index',
+          //     },
+          //   );
+          // },
         ),
       ),
     );

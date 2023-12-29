@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/helpers/profilemanager.dart';
+import 'package:provider/provider.dart';
 
 class SettingsFinal extends StatefulWidget {
   const SettingsFinal({super.key});
@@ -18,6 +20,7 @@ class _SettingsFinalState extends State<SettingsFinal> {
   final List<bool> _isExpanded = List.filled(4, false);
   @override
   Widget build(BuildContext context) {
+    final profilemanager = Provider.of<ProfileManager>(context);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -195,22 +198,23 @@ class _SettingsFinalState extends State<SettingsFinal> {
                   //backgroundColor: Theme.of(contex,
                   headerBuilder: (context, isExpanded) {
                     return ListTile(
-                      leading: const Icon(Icons.brightness_7_sharp),
                       title: Text(
                         'Theme',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     );
                   },
-                  body: const Column(
-                    children: [
-                      ListTile(
-                        //leading: Icon(Icons.timer_10),
-                        title: Text('Hello darkness'),
-                        trailing: Icon(Icons.delete),
-                      )
-                    ],
+                  body: SwitchListTile(
+                    title: Text(
+                      'darkTheme',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    value: profilemanager.getdarkMode,
+                    onChanged: (value) {
+                      profilemanager.darkMode = value;
+                    },
                   ),
+
                   isExpanded: _isExpanded[2],
                 ),
                 ExpansionPanel(

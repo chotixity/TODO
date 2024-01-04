@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/helpers/profilemanager.dart';
 import 'package:todo_app/navigation/app_router.dart';
 import 'package:todo_app/provider/appstatemanager.dart';
 import 'package:todo_app/provider/tasks.dart';
 import 'theme/appTheme.dart';
-import './widgets/bottombar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/widgets/bottombar.dart';
 import '../provider/appstatemanager.dart';
 
-import '../screens/screens.dart';
 
 class AppRouter {
   final AppStateManager appStateManager;

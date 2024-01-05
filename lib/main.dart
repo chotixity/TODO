@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,25 @@ class TODOApp extends StatefulWidget {
   State<TODOApp> createState() => _TODOAppState();
 }
 
-class _TODOAppState extends State<TODOApp> {
+class _TODOAppState extends State<TODOApp> with WidgetsBindingObserver {
   late final _approuter = AppRouter(widget.appStateManager).router;
+
+  late ThemeData theme;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    var brightness = View.of(context).platformDispatcher.platformBrightness;
+    theme =
+        brightness == Brightness.dark ? ToDOTheme.dark() : ToDOTheme.light();
+    // TODO: implement didChangePlatformBrightness
+    super.didChangePlatformBrightness();
+  }
 
   // This widget is the root of your application.
   @override
@@ -35,7 +53,6 @@ class _TODOAppState extends State<TODOApp> {
       ],
       child: Consumer<ProfileManager>(
         builder: (context, profileManager, child) {
-          ThemeData theme;
           if (profileManager.getdarkMode) {
             theme = ToDOTheme.dark();
           } else {
